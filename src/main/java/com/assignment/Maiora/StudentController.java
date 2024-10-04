@@ -13,6 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -49,4 +52,18 @@ public class StudentController {
   		return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
   	}
  }
+  	
+  	@PostMapping(value="/getstudentbyage")
+	  public ResponseEntity<?>  getstudentbyage(@RequestParam("fromAge") int fromAge, @RequestParam("toAge") int toAge) {
+  	  	Map<String, Object> map = new HashMap<String, Object>();
+
+  	  	List<Student> studentList = studentService.findStudentBetweenAges(fromAge, toAge);
+  	  	if (studentList != null) {
+  				map.put("status", 1);
+  				map.put("data", studentList);
+  				return new ResponseEntity<>(map, HttpStatus.OK);
+  	  	}else {
+  	  		return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+  	  	}
+  	}
 }
