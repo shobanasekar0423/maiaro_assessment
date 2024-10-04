@@ -33,4 +33,9 @@ public class StudentService {
 		return age;
 		
 	}
+
+	public List<Student> findStudentBetweenAges(int fromAge, int toAge) {
+		// TODO Auto-generated method stub
+		return repo.findStudentBetweenAges(fromAge, toAge);
+	}
 }
